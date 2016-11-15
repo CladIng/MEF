@@ -79,4 +79,27 @@ public class TLectura {
         }
         return files;
     }
+    public ArrayList  allTestsNF() throws IOException{
+        // Aquí la carpeta que queremos explorar
+        String path = "data/"; 
+        String file;
+        File folder = new File(path);
+        File[] listOfFiles = folder.listFiles(); 
+        ArrayList files = new ArrayList();
+        for (int i = 0; i < listOfFiles.length; i++) 
+        {
+            if (listOfFiles[i].isFile()) 
+            {
+                file = listOfFiles[i].getName();
+                if (file.endsWith(".xml") || file.endsWith(".XML"))
+                {
+                    if (statusTest(file)) {
+                        files.add(file);
+                    }
+                    
+                }
+            }
+        }
+        return files;
+    }
 }

@@ -1,10 +1,23 @@
 
 package json;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import logica.TLectura;
+import org.jdom2.Attribute;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.input.SAXBuilder;
+
+/**
+ * Importar Hashtables para generar el json
+ */
+import java.util.Hashtable;
+
 
 /**
  *
@@ -13,9 +26,70 @@ import logica.TLectura;
 public class prueba extends javax.swing.JFrame {
 
     TLectura tl = new TLectura();
-    public prueba() {
+    public prueba() throws IOException {
         initComponents();
-        getTest();  
+        getTest();
+        ReadXML();
+    }
+    
+    public void ReadXML() throws IOException{
+        try {
+         File inputFile = new File("data/data.xml");
+
+         SAXBuilder saxBuilder = new SAXBuilder();
+
+         Document document = saxBuilder.build(inputFile);
+
+         System.out.println("Root element :" 
+            + document.getRootElement().getName());
+
+         Element classElement = document.getRootElement();
+
+         /**
+          * Empezar a leer el xml apartir del root
+          */        
+        ArrayList<ArrayList> data  = new ArrayList<ArrayList>();
+        ArrayList<String> meta  = new ArrayList<String>();
+         
+         List<Element> testList = classElement.getChildren();
+         /**
+          * Obteniendo los valores del meta
+          */
+         
+         Element metaXML = testList.get(0);
+            //System.out.println("fecha: " + metaXML.getChild("Fecha").getText());
+         meta.add(metaXML.getChild("Fecha").getText());
+         meta.add(metaXML.getChild("Lotes").getText());
+         meta.add(metaXML.getChild("Pruebas").getText());
+         data.add(meta);
+         //System.out.println("meta: " + data.get(0).get(1));
+         for (int temp = 1; temp < testList.size(); temp++) {
+            ArrayList<String> test  = new ArrayList<String>();
+            Element tests = testList.get(temp);
+            Attribute idLote =  tests.getAttribute("IdLote");
+            Attribute idPrueba =  tests.getAttribute("IdPrueba");
+            String nameTest = idLote.getValue()+"_"+idPrueba.getValue();
+            test.add(nameTest);
+            test.add(tests.getChild("Fuerza").getText());
+            test.add(tests.getChild("Diametro").getText());
+            test.add(tests.getChild("Momento").getText());
+            test.add(tests.getChild("Esfuerzo").getText());
+            test.add(tests.getChild("Ciclos").getText());
+            test.add(tests.getChild("Tiempo").getText());
+            test.add(tests.getChild("Estado").getText());
+            data.add(test);
+         }
+        for( int i = 0; i < data.size(); i++ ){
+            for( int j = 0; j < data.get(i).size(); j++ ){
+                System.out.println("datos: " + data.get(i).get(j));
+            }
+        }
+
+//        
+         
+      }catch( Exception e ){
+            System.out.println("Ocurrio un error: " + e.getMessage());
+      }
     }
     
     public void getTest(){
@@ -58,7 +132,7 @@ public class prueba extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(159, 159, 159)
                         .addComponent(btn)))
-                .addContainerGap(168, Short.MAX_VALUE))
+                .addContainerGap(369, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -67,7 +141,7 @@ public class prueba extends javax.swing.JFrame {
                 .addComponent(cb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
                 .addComponent(btn)
-                .addContainerGap(113, Short.MAX_VALUE))
+                .addContainerGap(206, Short.MAX_VALUE))
         );
 
         pack();
@@ -116,7 +190,11 @@ public class prueba extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new prueba().setVisible(true);
+                try {
+                    new prueba().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(prueba.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
