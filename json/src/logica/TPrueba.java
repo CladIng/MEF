@@ -7,14 +7,14 @@ import java.io.BufferedWriter;
  * @author cesar
  */
 public class TPrueba extends TGuardarXml{
- private int    IdPrueba;
- private int    IdLote;
- private float  Fuerza; 
- private float  Diametro ;
- private float  Momento ;
- private float  Esfuerzo; 
- private float  Ciclos; 
- private float  Tiempos ;
+ private String IdPrueba;
+ private String IdLote;
+ private String  Fuerza; 
+ private String  Diametro ;
+ private String  Momento ;
+ private String  Esfuerzo; 
+ private String  Ciclos; 
+ private String Tiempos ;
  private String Estado; 
  private String Resultado;   
 
@@ -28,72 +28,72 @@ public class TPrueba extends TGuardarXml{
    GuardarEtiqueta("Momento", Momento, bw);
    GuardarEtiqueta("Esfuerzo", Esfuerzo, bw);
    GuardarEtiqueta("Ciclos", Ciclos, bw);
-   GuardarEtiqueta("Tiempos", Tiempos, bw);
+   GuardarEtiqueta("Tiempo", Tiempos, bw);
    GuardarEtiqueta("Estado", Estado, bw);
    GuardarLinea(" </Prueba>",bw);
   }
 
-    public int getIdPrueba() {
+    public String getIdPrueba() {
         return IdPrueba;
     }
 
-    public void setIdPrueba(int IdPrueba) {
+    public void setIdPrueba(String IdPrueba) {
         this.IdPrueba = IdPrueba;
     }
 
-    public int getIdLote() {
+    public String getIdLote() {
         return IdLote;
     }
 
-    public void setIdLote(int IdLote) {
+    public void setIdLote(String IdLote) {
         this.IdLote = IdLote;
     }
 
-    public float getFuerza() {
+    public String getFuerza() {
         return Fuerza;
     }
 
-    public void setFuerza(float Fuerza) {
+    public void setFuerza(String Fuerza) {
         this.Fuerza = Fuerza;
     }
 
-    public float getDiametro() {
+    public String getDiametro() {
         return Diametro;
     }
 
-    public void setDiametro(float Diametro) {
+    public void setDiametro(String Diametro) {
         this.Diametro = Diametro;
     }
 
-    public float getMomento() {
+    public String getMomento() {
         return Momento;
     }
 
-    public void setMomento(float Momento) {
+    public void setMomento(String Momento) {
         this.Momento = Momento;
     }
 
-    public float getEsfuerzo() {
+    public String getEsfuerzo() {
         return Esfuerzo;
     }
 
-    public void setEsfuerzo(float Esfuerzo) {
+    public void setEsfuerzo(String Esfuerzo) {
         this.Esfuerzo = Esfuerzo;
     }
 
-    public float getCiclos() {
+    public String getCiclos() {
         return Ciclos;
     }
 
-    public void setCiclos(float Ciclos) {
+    public void setCiclos(String Ciclos) {
         this.Ciclos = Ciclos;
     }
 
-    public float getTiempos() {
+    public String getTiempos() {
         return Tiempos;
     }
 
-    public void setTiempos(float Tiempos) {
+    public void setTiempos(String Tiempos) {
         this.Tiempos = Tiempos;
     }
 

@@ -29,12 +29,11 @@ public class prueba extends javax.swing.JFrame {
     public prueba() throws IOException {
         initComponents();
         getTest();
-        ReadXML();
     }
     
-    public void ReadXML() throws IOException{
+    public void ReadXML( String file ) throws IOException{
         try {
-         File inputFile = new File("data/data.xml");
+         File inputFile = new File("data/"+file);
 
          SAXBuilder saxBuilder = new SAXBuilder();
 
@@ -52,17 +51,16 @@ public class prueba extends javax.swing.JFrame {
         ArrayList<String> meta  = new ArrayList<String>();
          
          List<Element> testList = classElement.getChildren();
-         /**
-          * Obteniendo los valores del meta
-          */
-         
+        /**
+         * Obteniendo los valores del meta
+         */
          Element metaXML = testList.get(0);
-            //System.out.println("fecha: " + metaXML.getChild("Fecha").getText());
+         
          meta.add(metaXML.getChild("Fecha").getText());
          meta.add(metaXML.getChild("Lotes").getText());
          meta.add(metaXML.getChild("Pruebas").getText());
          data.add(meta);
-         //System.out.println("meta: " + data.get(0).get(1));
+         
          for (int temp = 1; temp < testList.size(); temp++) {
             ArrayList<String> test  = new ArrayList<String>();
             Element tests = testList.get(temp);
@@ -85,8 +83,6 @@ public class prueba extends javax.swing.JFrame {
             }
         }
 
-//        
-         
       }catch( Exception e ){
             System.out.println("Ocurrio un error: " + e.getMessage());
       }
@@ -150,7 +146,7 @@ public class prueba extends javax.swing.JFrame {
     private void btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActionPerformed
         String file = cb.getSelectedItem().toString();
         try {
-            if(tl.statusTest(file)){
+            if(tl.statusTest(file)>0){
                 System.out.println("El ensayo no se ha terminado");
             }else{
                 System.out.println("Ensayo terminado");

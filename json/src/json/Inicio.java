@@ -6,6 +6,7 @@
 package json;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import logica.TLectura;
@@ -19,6 +20,7 @@ public class Inicio extends javax.swing.JFrame {
     /**
      * Creates new form Inicio
      */
+    
     TLectura tl = new TLectura();
     public Inicio() throws IOException {
         initComponents();
@@ -29,7 +31,7 @@ public class Inicio extends javax.swing.JFrame {
         cbInicio.removeAllItems();
         if (tl.allTestsNF().size()>0) {
             for(int i = 0; i<tl.allTestsNF().size();i++){
-                cbInicio.addItem((String) tl.allTests().get(i));
+                cbInicio.addItem((String) tl.allTestsNF().get(i));
             }
         }else{
             btnRetomar.setEnabled(false);
@@ -140,6 +142,11 @@ public class Inicio extends javax.swing.JFrame {
         cbInicio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnRetomar.setText("Retomar");
+        btnRetomar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRetomarActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Ensayos sin terminar");
 
@@ -181,16 +188,41 @@ public class Inicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        dashboard obj = new dashboard();
-        obj.jlLotes.setText(tfLotes.getText());
-        obj.jlPruebas.setText(tfPruebas.getText());
-        obj.jlNombre.setText(tfNombre.getText());
-        obj.jlLote_i.setText("1");
-        obj.jlPrueba_i.setText("1");
+        dashboard dashB = new dashboard();
+        TEscritura te = new TEscritura();
+        try {
+            te.newFIle(tfNombre.getText(),tfLotes.getText(),tfPruebas.getText());
+        } catch (IOException ex) {
+            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dashB.jlLotes.setText(tfLotes.getText());
+        dashB.jlPruebas.setText(tfPruebas.getText());
+        dashB.jlNombre.setText(tfNombre.getText());
+        dashB.jlLote_i.setText("1");
+        dashB.jlPrueba_i.setText("1");
+        dashB.jlStatus.setText("Nuevo");
         this.setVisible(false);
-        obj.setVisible(true);
-        obj.setLocationRelativeTo(null);
+        dashB.setVisible(true);
+        dashB.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnRetomarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetomarActionPerformed
+        dashboard dashB = new dashboard();
+        try {
+            ArrayList<ArrayList> data  = new ArrayList<>();
+            data = tl.ReadXML(cbInicio.getSelectedItem().toString());
+            dashB.jlNombre.setText( data.get(0).get(0).toString() );
+            dashB.jlLote_i.setText(data.get(data.size()-1).get(2).toString());
+            dashB.jlPrueba_i.setText(data.get(data.size()-1).get(3).toString());
+            dashB.jlLotes.setText(data.get(0).get(2).toString());
+            dashB.jlPruebas.setText(data.get(0).get(3).toString());
+            this.setVisible(false);
+            dashB.setVisible(true);
+            dashB.setLocationRelativeTo(null);
+        } catch (IOException ex) {
+            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnRetomarActionPerformed
 
     /**
      * @param args the command line arguments

@@ -5,19 +5,7 @@
  */
 package json;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
-import javax.swing.JOptionPane;
-import logica.TEnsayo;
-import logica.TLectura;
-import org.jdom2.*;
-import org.jdom2.input.SAXBuilder;
-import org.jdom2.output.Format;
-import org.jdom2.output.XMLOutputter;
 
 /**
  *
@@ -27,12 +15,20 @@ public class Json {
     
     
     public static void main(String[] args) throws IOException{
-        TLectura obj = new TLectura();
+        Inicio obj = new Inicio();
+        obj.setVisible(true);
+        obj.setLocationRelativeTo(null);
+
+
+//TLectura obj = new TLectura();
         //JOptionPane.showMessageDialog(null, "Numero de ensayos: " + obj.allTests());
-        /*
-        File archivo = new File("data.xml");
-        BufferedWriter bw = new BufferedWriter(new FileWriter("data .xml"));
-        */
+//        
+//        File archivo = new File("data3.xml");
+//        BufferedWriter bw = new BufferedWriter(new FileWriter("data3.xml"));
+//        TEnsayo obj = new TEnsayo();
+//        //obj.add();
+//        obj.GuardarXml(bw);
+        
         /*try{
             File xml = new File("data .xml");
             SAXBuilder saxBuilder = new SAXBuilder();
@@ -61,12 +57,10 @@ public class Json {
         
         
         
-        
-        /*
-        TEnsayo obj = new TEnsayo();
-        obj.add();
-        obj.GuardarXml(bw);
         */
+        
+        
+        
         
     }
     

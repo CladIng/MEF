@@ -6,12 +6,15 @@
 package json;
 import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
+import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 import panamahitek.Arduino.PanamaHitek_Arduino;
 /**
@@ -21,35 +24,63 @@ import panamahitek.Arduino.PanamaHitek_Arduino;
 public class dashboard extends javax.swing.JFrame {
     
     Calculos cal = new Calculos( );
+    TEscritura te = new TEscritura();
+    
     PanamaHitek_Arduino arduino = new PanamaHitek_Arduino();
     SerialPortEventListener evento = new SerialPortEventListener() {
+        
+        
         @Override
         public void serialEvent(SerialPortEvent spe) {
             if(arduino.isMessageAvailable()){
-                if( jlStatus.getText().equalsIgnoreCase("retomado") ){
-                    
-                }
+                String sensor1 = "";
+                String sensor2 = "";
                 String data = arduino.printMessage();
                 String [] parts = data.split("=");
                 String part1 = parts[0];
                 String part2 = parts[1];
-                //System.out.println(data
-                //System.out.println("Tiempo transcuccrido: " + cal.getTiempo());
                 if(parts[0].equalsIgnoreCase("Sensor1")){
-                    tfFuerza.setText(parts[1]);
-                    //System.out.println(data);
+                    sensor1=parts[1];
+                    tfFuerza.setText(sensor1);
                 }
                 if(parts[0].equalsIgnoreCase("Sensor2")){
-                    tfCiclos.setText(parts[1]);
-//                    System.out.println(data);
+                    sensor2=parts[1];
+                    tfCiclos.setText(sensor2);
                 }
+                ArrayList<String> info = new ArrayList<>();
                 tfTiempo.setText(cal.getTiempo()+"");
+                switch( jlStatus.getText() ){
+                    case "Nuevo":{
+                        info.add(jlNombre.getText());
+                        info.add(jlLotes.getText());
+                        info.add(jlPruebas.getText());
+                        info.add(jlLote_i.getText());
+                        info.add(jlPrueba_i.getText());
+                        info.add(tfFuerza.getText());
+                        info.add(tfDiametro.getText());
+                        info.add(tfMomento.getText());
+                        info.add(tfEsfuerzo.getText());
+                        info.add(tfCiclos.getText());
+                        info.add(tfTiempo.getText());
+                        info.add("Pausado");
+                        try {
+                            te.saveTest(info);
+                        } catch (IOException ex) {
+                            Logger.getLogger(dashboard.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }break;
+                }
+                
+                
+                
+                
+                
             }
         }
     };
     public dashboard() {
         initComponents();
-        jlStatus.setText("retomado");
+//        jlStatus.setText("retomado");
         startConnection();
     }
     public void startConnection(){
@@ -104,6 +135,12 @@ public class dashboard extends javax.swing.JFrame {
 
         jLabel2.setText("Diametro");
 
+        tfDiametro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfDiametroKeyTyped(evt);
+            }
+        });
+
         jLabel3.setText("Momento");
 
         tfMomento.setEnabled(false);
@@ -154,7 +191,7 @@ public class dashboard extends javax.swing.JFrame {
                                 .addComponent(jLabel6)
                                 .addGap(6, 6, 6)
                                 .addComponent(tfTiempo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -295,77 +332,80 @@ public class dashboard extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(158, 158, 158)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jlStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                        .addGap(158, 158, 158)
+                        .addComponent(jlNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+                        .addGap(86, 86, 86))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jlStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 305, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel8)
-                        .addComponent(jlStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jlStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jlNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(121, 121, 121))))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
-        try {
-            arduino.sendData("1");
-            btnStart.setEnabled(false);
-            btnStop.setEnabled(true);
-        } catch (Exception ex) {
-            Logger.getLogger(dashboard.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        /**
-         * Se esperan 3 segundos para que la informacion enviada al arduino sea procesada
-         */
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(dashboard.class.getName()).log(Level.SEVERE, null, ex);
+        if (!tfDiametro.getText().equals("")) {
+            try {
+                arduino.sendData("1");
+                btnStart.setEnabled(false);
+                btnStop.setEnabled(true);
+            } catch (Exception ex) {
+                Logger.getLogger(dashboard.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            /**
+             * Se esperan 3 segundos para que la informacion enviada al arduino sea procesada
+             */
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(dashboard.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            float fuerza = Float.parseFloat(tfFuerza.getText());
+            float diametro = Float.parseFloat(tfDiametro.getText());
+            cal.setDiametro(diametro);
+            cal.setFuerza(fuerza);
+            tfMomento.setText(cal.getMomento()+"");
+            tfEsfuerzo.setText(cal.getEsfuerzo()+"");
+            tfDiametro.setEnabled(false);
+            cal.timeStart();
+        }else{
+            JOptionPane.showMessageDialog(null, "Debe ingresar el Diametro");
         }
         
-        float fuerza = Float.parseFloat(tfFuerza.getText());
-        float diametro = Float.parseFloat(tfDiametro.getText());
-        cal.setDiametro(diametro);
-        cal.setFuerza(fuerza);
-        tfMomento.setText(cal.getMomento()+"");
-        tfEsfuerzo.setText(cal.getEsfuerzo()+"");
-        tfDiametro.setEnabled(false);
-        cal.timeStart();
     }//GEN-LAST:event_btnStartActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStopActionPerformed
@@ -374,10 +414,15 @@ public class dashboard extends javax.swing.JFrame {
             btnStop.setEnabled(false);
             btnStart.setEnabled(true);
             tfDiametro.setEnabled(true);
+            jlStatus.setText("Terminado");
         } catch (Exception ex) {
             Logger.getLogger(dashboard.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnStopActionPerformed
+
+    private void tfDiametroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDiametroKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfDiametroKeyTyped
 
     /**
      * @param args the command line arguments
@@ -437,7 +482,7 @@ public class dashboard extends javax.swing.JFrame {
     public javax.swing.JLabel jlNombre;
     public javax.swing.JLabel jlPrueba_i;
     public javax.swing.JLabel jlPruebas;
-    private javax.swing.JLabel jlStatus;
+    public javax.swing.JLabel jlStatus;
     private javax.swing.JTextField tfCiclos;
     private javax.swing.JTextField tfDiametro;
     private javax.swing.JTextField tfEsfuerzo;

@@ -13,37 +13,37 @@ import java.io.BufferedWriter;
  * @author cesar
  */
 public class TMeta extends TGuardarXml{
- private String Nombre;
- private int Pruebas;
- private int Lotes;
+ private String Fecha;
+ private String Pruebas;
+ private String Lotes;
  
  public TMeta(){
-  Nombre="";
-  Pruebas=0;
-  Lotes=0;
+  Fecha="";
+  Pruebas="";
+  Lotes="";
  }
 
-    public String getNombre() {
-        return Nombre;
+    public String getFecha() {
+        return Fecha;
     }
 
-    public void setNombre(String Nombre) {
-        this.Nombre = Nombre;
+    public void setFecha(String Fecha) {
+        this.Fecha = Fecha;
     }
 
-    public int getPruebas() {
+    public String getPruebas() {
         return Pruebas;
     }
 
-    public void setPruebas(int Pruebas) {
+    public void setPruebas(String Pruebas) {
         this.Pruebas = Pruebas;
     }
 
-    public int getLotes() {
+    public String getLotes() {
         return Lotes;
     }
 
-    public void setLotes(int Lotes) {
+    public void setLotes(String Lotes) {
         this.Lotes = Lotes;
     }
  
@@ -51,7 +51,7 @@ public class TMeta extends TGuardarXml{
  
  public void GuardarXml(BufferedWriter bw){
   GuardarLinea(" <Meta>",bw);
-  GuardarEtiqueta("Nombre",Nombre,bw);
+  GuardarEtiqueta("Fecha",Fecha,bw);
   GuardarLinea("  <Lotes>" + Lotes +  "</Lotes>",bw);
   GuardarLinea("  <Pruebas>" + Pruebas + "</Pruebas>",bw);
   GuardarLinea(" </Meta>",bw);
