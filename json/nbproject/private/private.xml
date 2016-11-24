@@ -5,10 +5,12 @@
         <group>
             <file>file:/C:/Users/cesar/Documents/NetBeansProjects/json/src/json/dashboard.java</file>
             <file>file:/C:/Users/cesar/Documents/NetBeansProjects/json/src/logica/TEnsayo.java</file>
+            <file>file:/C:/Users/cesar/Documents/NetBeansProjects/json/src/json/Json.java</file>
             <file>file:/C:/Users/cesar/Documents/NetBeansProjects/json/src/json/TEscritura.java</file>
             <file>file:/C:/Users/cesar/Documents/NetBeansProjects/json/src/json/Inicio.java</file>
-            <file>file:/C:/Users/cesar/Documents/NetBeansProjects/json/src/json/</file>
+            <file>file:/C:/Users/cesar/Documents/NetBeansProjects/json/src/json/clase_Grafica.java</file>
             <file>file:/C:/Users/cesar/Documents/NetBeansProjects/json/src/logica/TLectura.java</file>
+            <file>file:/C:/Users/cesar/Documents/NetBeansProjects/json/src/logica/TGuardarXml.java</file>
         </group>
     </open-files>
 </project-private>

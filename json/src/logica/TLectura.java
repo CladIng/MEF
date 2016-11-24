@@ -14,15 +14,15 @@ import org.jdom2.input.SAXBuilder;
 public class TLectura {
     
     
-    public int statusTest( String test ) throws IOException{
+    public int statusTest( String test, String parm1, String parm2 ) throws IOException{
         /*File archivo = new File("data.xml");
         BufferedWriter bw = new BufferedWriter(new FileWriter("data .xml"));*/
         int flag=0;
         try{
-            File xml = new File("data/"+test);
+            File xml = new File(test);
             SAXBuilder saxBuilder = new SAXBuilder();
             Document document = saxBuilder.build(xml);
-            System.out.println("Root element :" + document.getRootElement().getName());
+            //System.out.println("Root element :" + document.getRootElement().getName());
             
             Element classElement = document.getRootElement();
             
@@ -30,8 +30,7 @@ public class TLectura {
             
             for( int index = 0; index < Pruebas.size() ; index++ ){
                 Element Prueba = Pruebas.get(index);
-                System.out.println("Estado: " + Prueba.getChildText("Estado"));
-                if( Prueba.getChildText("Estado").equals("Pausado") ){
+                if( Prueba.getChildText(parm1).equals(parm2) ){
                     flag++;
                 }
                 //System.out.println("Ciclos de la prueba "+index+" es: "+Prueba.getChildText("Ciclos"));
@@ -40,6 +39,41 @@ public class TLectura {
         }catch( JDOMException e ){
             e.printStackTrace();
             return 0;
+        }
+        
+    }
+
+    /**
+     *
+     * @param test
+     * @param parm1
+     * @param parm2
+     * @return
+     * @throws IOException
+     */
+    public String dataObjet( String test, String objet) throws IOException{
+        /*File archivo = new File("data.xml");
+        BufferedWriter bw = new BufferedWriter(new FileWriter("data .xml"));*/
+        String data = "";
+        try{
+            File xml = new File(test);
+            SAXBuilder saxBuilder = new SAXBuilder();
+            Document document = saxBuilder.build(xml);
+            //System.out.println("Root element :" + document.getRootElement().getName());
+            
+            Element classElement = document.getRootElement();
+            
+            List<Element> Pruebas = classElement.getChildren("Prueba");
+            
+            for( int index = 0; index < Pruebas.size() ; index++ ){
+                Element Prueba = Pruebas.get(index);
+                data = Prueba.getChild(objet).getText();
+                //System.out.println("Ciclos de la prueba "+index+" es: "+Prueba.getChildText("Ciclos"));
+            }
+            return data;
+        }catch( JDOMException e ){
+            e.printStackTrace();
+            return data;
         }
         
     }
@@ -65,53 +99,108 @@ public class TLectura {
         return files;
     }
     
-    public ArrayList  allTestsNF() throws IOException{
+    public ArrayList  ciclosYFuerzas( String name ) throws IOException{
         // Aquí la carpeta que queremos explorar
-        String path = "data/"; 
+        String path = "ensayos/"; 
+        String Dir;
         String file;
-        File folder = new File(path);
-        File[] listOfFiles = folder.listFiles(); 
-        ArrayList<String> files = new ArrayList();
-        for (int i = 0; i < listOfFiles.length; i++) 
+        File tests = new File(path);
+        File[] listOfTests = tests.listFiles();
+        ArrayList<ArrayList> files = new ArrayList();
+        ArrayList<String> ciclos = new ArrayList();
+        ArrayList<String> fuerzas = new ArrayList();
+        for (int i = 0; i < listOfTests.length; i++) 
         {
-            if (listOfFiles[i].isFile()) 
+            if (listOfTests[i].isDirectory())
             {
-                file = listOfFiles[i].getName();
-                if (file.endsWith(".xml") || file.endsWith(".XML"))
-                {
-                    if (statusTest(file)>0) {
-                        System.out.println("statusFile: " + statusTest(file) + " file: " + file);
-                        files.add(file);
+                Dir = listOfTests[i].getName();
+                if (Dir.equals(name)) {
+                    File pruebas = new File(path+Dir);
+                    File[] listaDePruebas = pruebas.listFiles();
+                    for (int j = 0; j < listaDePruebas.length; j++) {
+                        if (listaDePruebas[j].isFile()) {
+                            file = listaDePruebas[j].getName();
+                            if (file.endsWith(".xml") || file.endsWith(".XML")){
+                                ciclos.add(dataObjet(path+Dir+"/"+file,"Ciclos"));
+                                fuerzas.add(dataObjet(path+Dir+"/"+file,"Fuerza"));
+                            }
+                        }
                     }
-                    
                 }
+            }
+        }
+        files.add(ciclos);
+        files.add(fuerzas);
+        for (int i = 0; i < files.size(); i++) {
+            for (int j = 0; j < files.get(i).size(); j++) {
+                System.out.println("datos array " + i + " : " + files.get(i).get(j));
             }
         }
         return files;
     }
     
-    
-    
-    
-    
+    public ArrayList  allTestsNF(  ) throws IOException{
+        // Aquí la carpeta que queremos explorar
+        String path = "ensayos/"; 
+        String Dir;
+        String file;
+        File tests = new File(path);
+        File[] listOfTests = tests.listFiles();
+        ArrayList<String> files2 = new ArrayList();
+        if (listOfTests.length>0) {
+            System.err.println("numero de tests: " + listOfTests.length);
+            ArrayList<String> files = new ArrayList();
+            for (int i = 0; i < listOfTests.length; i++) 
+            {
+                if (listOfTests[i].isDirectory()) 
+                {
+                    Dir = listOfTests[i].getName();
+                    File pruebas = new File(path+Dir);
+                    File[] listaDePruebas = pruebas.listFiles();
+
+                    for (int j = 0; j < listaDePruebas.length; j++) {
+                        if (listaDePruebas[j].isFile()) {
+                            file = listaDePruebas[j].getName();
+                            if (file.endsWith(".xml") || file.endsWith(".XML")){
+                                if (statusTest(path+Dir+"/"+file,"Estado","Pendiente")>0) {
+                                    files.add(Dir);        
+                                }
+                            }
+                        }
+                    }
+
+
+                }
+            }
+            
+            files2.add(files.get(0));
+            for (int i = 0; i < files.size(); i++) {
+                for (int j = 0; j < files2.size(); j++) {
+                    if ( !files2.get(j).equals(files.get(i)) ) {
+                        files2.add(files.get(i));
+                    }
+                }
+            }
+        }
+        
+        return files2;
+    }
+   
     public ArrayList ReadXML( String file ) throws IOException{
+        
         ArrayList<ArrayList> data  = new ArrayList<ArrayList>();
         try {
-         File inputFile = new File("data/"+file);
+         File inputFile = new File(file);
 
          SAXBuilder saxBuilder = new SAXBuilder();
 
          Document document = saxBuilder.build(inputFile);
-
-         System.out.println("Root element :" 
-            + document.getRootElement().getName());
 
          Element classElement = document.getRootElement();
 
          /**
           * Empezar a leer el xml apartir del root
           */        
-        
         ArrayList<String> meta  = new ArrayList<String>();
          
          List<Element> testList = classElement.getChildren();
@@ -130,7 +219,6 @@ public class TLectura {
             Element tests = testList.get(temp);
             Attribute idLote =  tests.getAttribute("IdLote");
             Attribute idPrueba =  tests.getAttribute("IdPrueba");
-            String nameTest = idLote.getValue()+"_"+idPrueba.getValue();
             test.add(idLote.getValue());
             test.add(idPrueba.getValue());
             test.add(tests.getChild("Fuerza").getText());

@@ -145,15 +145,15 @@ public class prueba extends javax.swing.JFrame {
 
     private void btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActionPerformed
         String file = cb.getSelectedItem().toString();
-        try {
-            if(tl.statusTest(file)>0){
-                System.out.println("El ensayo no se ha terminado");
-            }else{
-                System.out.println("Ensayo terminado");
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(prueba.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            if(tl.statusTest(file)>0){
+//                System.out.println("El ensayo no se ha terminado");
+//            }else{
+//                System.out.println("Ensayo terminado");
+//            }
+//        } catch (IOException ex) {
+//            Logger.getLogger(prueba.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }//GEN-LAST:event_btnActionPerformed
 
     /**

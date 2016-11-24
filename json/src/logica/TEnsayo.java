@@ -16,26 +16,26 @@ public class TEnsayo extends TGuardarXml{
    Meta    = new TMeta();
    Pruebas = new ArrayList();
   }
-  
+    
     public void add( ArrayList<ArrayList> data ){
         Nombre = data.get(0).get(0).toString();
         Meta.setFecha(data.get(0).get(1).toString());
         Meta.setLotes((String) data.get(0).get(2));
         Meta.setPruebas((String) data.get(0).get(3));
-        
+        TPrueba ObjPrueba = new TPrueba();
         for (int i = 1; i < data.size(); i++) {
-            TPrueba ObjPrueba = new TPrueba();
-            ObjPrueba.setFuerza( data.get(i).get(0).toString());
-            ObjPrueba.setDiametro( data.get(i).get(1).toString());
-            ObjPrueba.setMomento( data.get(i).get(2).toString());
-            ObjPrueba.setEsfuerzo( data.get(i).get(3).toString());
-            ObjPrueba.setCiclos( data.get(i).get(4).toString());
-            ObjPrueba.setTiempos(data.get(i).get(5).toString());
-            ObjPrueba.setEstado(data.get(i).get(6).toString());
-            ObjPrueba.setIdLote((String) data.get(0).get(2));
-            ObjPrueba.setIdPrueba((String) data.get(0).get(3));
+            ObjPrueba.setIdLote(data.get(i).get(0).toString());
+            ObjPrueba.setIdPrueba(data.get(i).get(1).toString());
+            ObjPrueba.setFuerza( data.get(i).get(2).toString());
+            ObjPrueba.setDiametro( data.get(i).get(3).toString());
+            ObjPrueba.setMomento( data.get(i).get(4).toString());
+            ObjPrueba.setEsfuerzo( data.get(i).get(5).toString());
+            ObjPrueba.setCiclos( data.get(i).get(6).toString());
+            ObjPrueba.setTiempos(data.get(i).get(7).toString());
+            ObjPrueba.setEstado(data.get(i).get(8).toString());
             Pruebas.add(ObjPrueba);
         }
+        ObjPrueba = null;
     }
   
   
@@ -49,6 +49,7 @@ public class TEnsayo extends TGuardarXml{
       Pruebas.get(i).GuardarXml(bw);
      }
      GuardarLinea("</Ensayo>",bw);
+     Pruebas.clear();
     }
     
 }
