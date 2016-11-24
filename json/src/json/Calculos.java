@@ -47,7 +47,7 @@ public class Calculos {
         m=(time_s-(3600*h))/60;
         s=time_s-((h*3600)+(m*60));
         calendario2.clear();
-        return s+":"+m+":"+h;
+        return h+":"+m+":"+s;
         //return "Hora final: "+Hora_f+" Hora inicial: " + Hora_i + " Resta: " + time_s;
     }
     
