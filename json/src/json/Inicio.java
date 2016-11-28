@@ -22,6 +22,7 @@ public class Inicio extends javax.swing.JFrame {
     TEscritura te = new TEscritura();
     public Inicio() throws IOException {
         initComponents();
+        loading.setVisible(false);
         getTestNF();
         JOptionPane.showMessageDialog(null, "Asegúrese de haber conectado el Arduino.");
     }
@@ -42,6 +43,7 @@ public class Inicio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        loading = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         tfNombre = new javax.swing.JTextField();
@@ -72,10 +74,20 @@ public class Inicio extends javax.swing.JFrame {
         setTitle("Nuevo Ensayo");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        loading.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/output_fFJCbh.gif"))); // NOI18N
+        loading.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.gray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        getContentPane().add(loading, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 180, 100, 100));
+
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel1.setText("Nombre");
+
+        tfNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfNombreKeyTyped(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel2.setText("Lotes");
@@ -125,25 +137,24 @@ public class Inicio extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addGap(61, 61, 61))
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(43, 43, 43)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addComponent(btnCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
+                        .addGap(3, 3, 3)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2))
-                                .addGap(27, 27, 27)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfLotes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfPruebas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(38, Short.MAX_VALUE))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfLotes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfPruebas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(76, 76, 76)
+                .addComponent(btnCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,7 +245,7 @@ public class Inicio extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel6.setText("Universidad De Córdoba");
 
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/json/result.png"))); // NOI18N
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/unicor.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -324,21 +335,25 @@ public class Inicio extends javax.swing.JFrame {
         if ( tfLotes.getText().equals("") || tfNombre.getText().equals("") || tfPruebas.getText().equals("") ) {
             JOptionPane.showMessageDialog(null, "Debe ingresar Nombre, Lotes y Pruebas.");
         }else{
-            dashboard dashB = new dashboard();
-            try {
-            te.newFIle(tfNombre.getText(),tfLotes.getText(),tfPruebas.getText());
-            } catch (IOException ex) {
-                Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            dashB.jlLotes.setText(tfLotes.getText());
-            dashB.jlPruebas.setText(tfPruebas.getText());
-            dashB.jlNombre.setText(tfNombre.getText());
-            dashB.jlLote_i.setText("1");
-            dashB.jlPrueba_i.setText("1");
-            dashB.jlStatus.setText("Nuevo");
-            this.setVisible(false);
-            dashB.setVisible(true);
-            dashB.setLocationRelativeTo(null);
+            
+            Hilos hilo = new Hilos(this);
+            hilo.start();
+            
+//            dashboard dashB = new dashboard();
+//            try {
+//                te.newFIle(tfNombre.getText(),tfLotes.getText(),tfPruebas.getText());
+//            } catch (IOException ex) {
+//                Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            dashB.jlLotes.setText(tfLotes.getText());
+//            dashB.jlPruebas.setText(tfPruebas.getText());
+//            dashB.jlNombre.setText(tfNombre.getText());
+//            dashB.jlLote_i.setText("1");
+//            dashB.jlPrueba_i.setText("1");
+//            dashB.jlStatus.setText("Nuevo");
+//            this.setVisible(false);
+//            dashB.setVisible(true);
+//            dashB.setLocationRelativeTo(null);
         }
         
     }//GEN-LAST:event_btnCrearActionPerformed
@@ -444,6 +459,15 @@ public class Inicio extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbInicioActionPerformed
 
+    private void tfNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNombreKeyTyped
+        int c = evt.getKeyChar();
+        char aux = 95;
+        System.err.println("tecla: " + c);
+        if ( c == 32 ) {
+            evt.setKeyChar( aux );
+        }
+    }//GEN-LAST:event_tfNombreKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -506,6 +530,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    public javax.swing.JLabel loading;
     public javax.swing.JTextField tfLotes;
     public javax.swing.JTextField tfNombre;
     public javax.swing.JTextField tfPruebas;

@@ -68,11 +68,14 @@ public class dashboard extends javax.swing.JFrame {
         startConnection();
     }
     public void startConnection(){
+        
         try {
             arduino.arduinoRXTX(arduino.getSerialPorts().get(0), 9600, evento);
-        } catch (Exception ex) { 
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Asegurese de conectar el Arduino");
             Logger.getLogger(dashboard.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -113,7 +116,6 @@ public class dashboard extends javax.swing.JFrame {
         btnStart = new javax.swing.JButton();
         btnGraficar = new javax.swing.JButton();
         btnStop = new javax.swing.JButton();
-        btnNuevo = new javax.swing.JButton();
         jlNombre = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jlStatus = new javax.swing.JLabel();
@@ -373,13 +375,6 @@ public class dashboard extends javax.swing.JFrame {
             }
         });
 
-        btnNuevo.setText("Nuevo");
-        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -389,12 +384,10 @@ public class dashboard extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnGraficar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 10, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnStart, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
-                                .addComponent(btnStop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(0, 18, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnStart, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
+                            .addComponent(btnStop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(8, 8, 8)))
                 .addContainerGap())
         );
@@ -406,8 +399,6 @@ public class dashboard extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(btnStop, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
                 .addComponent(btnGraficar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32))
         );
@@ -494,6 +485,7 @@ public class dashboard extends javax.swing.JFrame {
             tfEsfuerzo.setText(cal.getEsfuerzo()+"");
             tfDiametro.setEnabled(false);
             cal.timeStart();
+            
         }else{
             JOptionPane.showMessageDialog(null, "Debe ingresar el Diametro");
         }
@@ -508,7 +500,6 @@ public class dashboard extends javax.swing.JFrame {
             if (te.endTest(jlNombre.getText(), jlLotes.getText(), jlPruebas.getText(), jlLote_i.getText(), jlPrueba_i.getText())) {
                 btnStart.setEnabled(false);
                 btnGraficar.setEnabled(true);
-                btnNuevo.setEnabled(true);
             }
         } catch (IOException ex) {
             Logger.getLogger(dashboard.class.getName()).log(Level.SEVERE, null, ex);
@@ -540,20 +531,6 @@ public class dashboard extends javax.swing.JFrame {
             Logger.getLogger(dashboard.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnGraficarActionPerformed
-
-    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        try {
-            Inicio inicio = new Inicio();
-            inicio.setVisible(true);
-            inicio.setLocationRelativeTo(null);
-            this.dispose();
-            
-        } catch (IOException ex) {
-            Logger.getLogger(dashboard.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(dashboard.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnNuevoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -592,7 +569,6 @@ public class dashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGraficar;
-    private javax.swing.JButton btnNuevo;
     public javax.swing.JButton btnStart;
     private javax.swing.JButton btnStop;
     private javax.swing.JDialog jDialog1;

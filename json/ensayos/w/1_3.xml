@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<Ensayo  Nombre="w" >
+ <Meta>
+<Fecha>Mon Nov 28 11:34:38 CST 2016</Fecha>
+  <Lotes>3</Lotes>
+  <Pruebas>3</Pruebas>
+ </Meta>
+ <Prueba IdPrueba="3"  IdLote="1" >
+<Fuerza>0.000</Fuerza>
+<Diametro>4</Diametro>
+<Momento>4.0</Momento>
+<Esfuerzo>0.0</Esfuerzo>
+<Ciclos>0</Ciclos>
+<Tiempo>0:0:3</Tiempo>
+<Estado>Terminado</Estado>
+ </Prueba>
+</Ensayo>

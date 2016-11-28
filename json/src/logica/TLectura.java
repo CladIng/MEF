@@ -148,7 +148,6 @@ public class TLectura {
         File[] listOfTests = tests.listFiles();
         ArrayList<String> files2 = new ArrayList();
         if (listOfTests.length>0) {
-            System.err.println("numero de tests: " + listOfTests.length);
             ArrayList<String> files = new ArrayList();
             for (int i = 0; i < listOfTests.length; i++) 
             {
