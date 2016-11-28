@@ -37,7 +37,6 @@ public class TLectura {
             }
             return flag;
         }catch( JDOMException e ){
-            e.printStackTrace();
             return 0;
         }
         
@@ -46,8 +45,7 @@ public class TLectura {
     /**
      *
      * @param test
-     * @param parm1
-     * @param parm2
+     * @param objet
      * @return
      * @throws IOException
      */
@@ -212,6 +210,7 @@ public class TLectura {
          meta.add(metaXML.getChild("Fecha").getText());
          meta.add(metaXML.getChild("Lotes").getText());
          meta.add(metaXML.getChild("Pruebas").getText());
+         meta.add(metaXML.getChild("Metal").getText());
          data.add(meta);
          for (int temp = 1; temp < testList.size(); temp++) {
             ArrayList<String> test  = new ArrayList<>();

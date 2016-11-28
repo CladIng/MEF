@@ -4,7 +4,6 @@ package json;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,7 +24,7 @@ public class Hilos extends Thread{
         inicio.tfPruebas .setEditable(false);
         dashboard dashB = new dashboard();
         try {
-            inicio.te.newFIle(inicio.tfNombre.getText(),inicio.tfLotes.getText(),inicio.tfPruebas.getText());
+            inicio.te.newFIle(inicio.tfNombre.getText(),inicio.tfLotes.getText(),inicio.tfPruebas.getText(),inicio.cbMetal.getSelectedItem().toString());
         } catch (IOException ex) {
             Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
         }

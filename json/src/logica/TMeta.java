@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package logica;
 
 import java.io.BufferedWriter;
@@ -16,12 +12,22 @@ public class TMeta extends TGuardarXml{
  private String Fecha;
  private String Pruebas;
  private String Lotes;
+ private String Metal;
  
  public TMeta(){
-  Fecha="";
-  Pruebas="";
-  Lotes="";
+  Fecha   = "";
+  Pruebas = "";
+  Lotes   = "";
+  Metal   = "";
  }
+
+    public String getMetal() {
+        return Metal;
+    }
+
+    public void setMetal(String Metal) {
+        this.Metal = Metal;
+    }
 
     public String getFecha() {
         return Fecha;
@@ -54,6 +60,7 @@ public class TMeta extends TGuardarXml{
   GuardarEtiqueta("Fecha",Fecha,bw);
   GuardarLinea("  <Lotes>" + Lotes +  "</Lotes>",bw);
   GuardarLinea("  <Pruebas>" + Pruebas + "</Pruebas>",bw);
+  GuardarLinea("  <Metal>" + Metal + "</Metal>",bw);
   GuardarLinea(" </Meta>",bw);
  }
  

@@ -22,6 +22,7 @@ public class TEnsayo extends TGuardarXml{
         Meta.setFecha(data.get(0).get(1).toString());
         Meta.setLotes((String) data.get(0).get(2));
         Meta.setPruebas((String) data.get(0).get(3));
+        Meta.setMetal((String) data.get(0).get(4));
         TPrueba ObjPrueba = new TPrueba();
         for (int i = 1; i < data.size(); i++) {
             ObjPrueba.setIdLote(data.get(i).get(0).toString());

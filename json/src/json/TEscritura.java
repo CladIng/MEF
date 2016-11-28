@@ -5,10 +5,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import logica.TEnsayo;
 import logica.TLectura;
@@ -28,7 +26,7 @@ public class TEscritura {
         te = new TEnsayo();
     }
     
-    public void newFIle( String name ,String Lotes, String Pruebas ) throws IOException{
+    public void newFIle( String name ,String Lotes, String Pruebas, String Metal ) throws IOException{
         File directorio=new File("ensayos"); 
         directorio.mkdir();
         File ensayo = new File("ensayos/"+name+"/"); 
@@ -47,7 +45,8 @@ public class TEscritura {
                 meta.add(fecha.toString());
                 meta.add(Lotes);
                 meta.add(Pruebas);
-
+                meta.add(Metal);
+                
                 index.add(meta);
                 test.add(i+"");
                 test.add(j+"");
