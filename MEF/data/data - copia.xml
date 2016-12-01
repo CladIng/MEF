@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<Ensayo  Nombre="Quinto ensayo" >
+ <Meta>
+  <Fecha>15/11/2016</Fecha>
+  <Lotes>2</Lotes>
+  <Pruebas>5</Pruebas>
+ </Meta>
+ <Prueba IdPrueba="4"  IdLote="2" >
+<Fuerza>344.0</Fuerza>
+<Diametro>43.0</Diametro>
+<Momento>321.0</Momento>
+<Esfuerzo>21.0</Esfuerzo>
+<Ciclos>23.0</Ciclos>
+<Tiempo>3000.0</Tiempo>
+<Estado>Terminado</Estado>
+ </Prueba>
+ <Prueba IdPrueba="5"  IdLote="2" >
+<Fuerza>344.0</Fuerza>
+<Diametro>43.0</Diametro>
+<Momento>321.0</Momento>
+<Esfuerzo>21.0</Esfuerzo>
+<Ciclos>23.0</Ciclos>
+<Tiempo>3000.0</Tiempo>
+<Estado>Terminado</Estado>
+ </Prueba>
+ <Prueba IdPrueba="3"  IdLote="2" >
+<Fuerza>344.0</Fuerza>
+<Diametro>43.0</Diametro>
+<Momento>321.0</Momento>
+<Esfuerzo>21.0</Esfuerzo>
+<Ciclos>23.0</Ciclos>
+<Tiempo>3000.0</Tiempo>
+<Estado>Pausado</Estado>
+ </Prueba>
+</Ensayo>
