@@ -23,6 +23,7 @@ public class Inicio extends javax.swing.JFrame {
     public Inicio() throws IOException {
         initComponents();
         loading.setVisible(false);
+        tl.lastTest("5");
         getTestNF();
         JOptionPane.showMessageDialog(null, "Asegúrese de haber conectado el Arduino.");
     }
@@ -78,7 +79,7 @@ public class Inicio extends javax.swing.JFrame {
 
         loading.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/output_fFJCbh.gif"))); // NOI18N
         loading.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.gray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        getContentPane().add(loading, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 230, 100, 100));
+        getContentPane().add(loading, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 100, 100));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -130,7 +131,7 @@ public class Inicio extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel5.setText("Nuevo Ensayo");
 
-        cbMetal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "m 44", "s 33", "k 22", "c 9" }));
+        cbMetal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Acero AISI 4140", "Acero AISI 3215", "Acero AISI 1045", "Acero AISI 1020", "Acero AISI 1018", "Aluminio T6", "Bronce" }));
 
         jLabel13.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel13.setText("Metal");
@@ -140,28 +141,27 @@ public class Inicio extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 75, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addGap(61, 61, 61))
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(78, 78, 78)
+                .addComponent(btnCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel13))
-                        .addGap(24, 24, 24)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfLotes, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfPruebas, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbMetal, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addComponent(btnCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(38, Short.MAX_VALUE))
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel13))
+                .addGap(15, 15, 15)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(tfNombre)
+                    .addComponent(tfLotes)
+                    .addComponent(tfPruebas)
+                    .addComponent(cbMetal, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(19, 19, 19))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,20 +171,23 @@ public class Inicio extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel3))
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel13))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfLotes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
+                        .addComponent(tfLotes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfPruebas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)))
-                    .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbMetal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13))
+                        .addComponent(tfPruebas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbMetal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(btnCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
@@ -347,7 +350,7 @@ public class Inicio extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debe ingresar Nombre, Lotes y Pruebas.");
         }else{
             
-            Hilos hilo = new Hilos(this);
+            Hilos_New_Test hilo = new Hilos_New_Test(this);
             hilo.start();
             
 //            dashboard dashB = new dashboard();
@@ -370,21 +373,24 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnRetomarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetomarActionPerformed
-        dashboard dashB = new dashboard();
-        try {
-            ArrayList<ArrayList> data  = new ArrayList<>();
-            data = tl.ReadXML(cbInicio.getSelectedItem().toString());
-            dashB.jlNombre.setText( data.get(0).get(0).toString() );
-            dashB.jlLote_i.setText(data.get(data.size()-1).get(2).toString());
-            dashB.jlPrueba_i.setText(data.get(data.size()-1).get(3).toString());
-            dashB.jlLotes.setText(data.get(0).get(2).toString());
-            dashB.jlPruebas.setText(data.get(0).get(3).toString());
-            this.setVisible(false);
-            dashB.setVisible(true);
-            dashB.setLocationRelativeTo(null);
-        } catch (IOException ex) {
-            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Hilos_Return_Test hilo = new Hilos_Return_Test(this);
+        hilo.start();
+//        dashboard dashB = new dashboard();
+//        try {
+//            ArrayList<ArrayList> data  = new ArrayList<>();
+//            String path = "ensayos/"+tfNombre.getText()+"/"+tfLotes.getText()+"_"+tfPruebas.getText()+".xml";
+//            data = tl.ReadXML(cbInicio.getSelectedItem().toString());
+//            dashB.jlNombre.setText( data.get(0).get(0).toString() );
+//            dashB.jlLote_i.setText(data.get(data.size()-1).get(2).toString());
+//            dashB.jlPrueba_i.setText(data.get(data.size()-1).get(3).toString());
+//            dashB.jlLotes.setText(data.get(0).get(2).toString());
+//            dashB.jlPruebas.setText(data.get(0).get(3).toString());
+//            this.setVisible(false);
+//            dashB.setVisible(true);
+//            dashB.setLocationRelativeTo(null);
+//        } catch (IOException ex) {
+//            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }//GEN-LAST:event_btnRetomarActionPerformed
 
     private void tfLotesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfLotesKeyTyped
@@ -521,7 +527,7 @@ public class Inicio extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnCrear;
     private javax.swing.JButton btnRetomar;
-    private javax.swing.JComboBox<String> cbInicio;
+    public javax.swing.JComboBox<String> cbInicio;
     public javax.swing.JComboBox<String> cbMetal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

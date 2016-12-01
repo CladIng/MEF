@@ -36,26 +36,23 @@ public class dashboard extends javax.swing.JFrame {
                 
                 ArrayList<String> info = new ArrayList<>();
                 tfTiempo.setText(cal.getTiempo()+"");
-                switch( jlStatus.getText() ){
-                    case "Nuevo":{
-                        info.add(jlNombre.getText());
-                        info.add(jlLotes.getText());
-                        info.add(jlPruebas.getText());
-                        info.add(jlLote_i.getText());
-                        info.add(jlPrueba_i.getText());
-                        info.add(tfFuerza.getText());
-                        info.add(tfDiametro.getText());
-                        info.add(tfMomento.getText());
-                        info.add(tfEsfuerzo.getText());
-                        info.add(tfCiclos.getText());
-                        info.add(tfTiempo.getText());
-                        info.add("Pendiente");
-                        try {
-                            te.saveTest(info);
-                        } catch (IOException ex) {
-                            Logger.getLogger(dashboard.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }break;
+                
+                info.add(jlNombre.getText());
+                info.add(jlLotes.getText());
+                info.add(jlPruebas.getText());
+                info.add(jlLote_i.getText());
+                info.add(jlPrueba_i.getText());
+                info.add(tfFuerza.getText());
+                info.add(tfDiametro.getText());
+                info.add(tfMomento.getText());
+                info.add(tfEsfuerzo.getText());
+                info.add(tfCiclos.getText());
+                info.add(tfTiempo.getText());
+                info.add("Pendiente");
+                try {
+                    te.saveTest(info);
+                } catch (IOException ex) {
+                    Logger.getLogger(dashboard.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -147,7 +144,7 @@ public class dashboard extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel1.setText("Fuerza");
 
-        tfFuerza.setEnabled(false);
+        tfFuerza.setEditable(false);
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setText("Diametro");
@@ -161,22 +158,22 @@ public class dashboard extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel3.setText("Momento");
 
-        tfMomento.setEnabled(false);
+        tfMomento.setEditable(false);
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setText("Esfuerzo");
 
-        tfEsfuerzo.setEnabled(false);
+        tfEsfuerzo.setEditable(false);
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel5.setText("Ciclos");
 
-        tfCiclos.setEnabled(false);
+        tfCiclos.setEditable(false);
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel6.setText("Tiempo");
 
-        tfTiempo.setEnabled(false);
+        tfTiempo.setEditable(false);
 
         jLabel10.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel10.setText("N");
@@ -393,7 +390,7 @@ public class dashboard extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(btnStart, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(69, 69, 69)
                 .addComponent(btnStop, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnGraficar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)

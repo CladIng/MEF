@@ -3,6 +3,7 @@ package logica;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import org.jdom2.*;
 import org.jdom2.input.SAXBuilder;
@@ -138,7 +139,7 @@ public class TLectura {
     }
     
     public ArrayList  allTestsNF(  ) throws IOException{
-        // Aquí la carpeta que queremos explorar
+        // Aquí la carpeta que queremos explorar    
         String path = "ensayos/"; 
         String Dir;
         String file;
@@ -147,17 +148,14 @@ public class TLectura {
         ArrayList<String> files2 = new ArrayList();
         if (listOfTests.length>0) {
             ArrayList<String> files = new ArrayList();
-            for (int i = 0; i < listOfTests.length; i++) 
-            {
-                if (listOfTests[i].isDirectory()) 
-                {
-                    Dir = listOfTests[i].getName();
+            for (File listOfTest : listOfTests) {
+                if (listOfTest.isDirectory()) {
+                    Dir = listOfTest.getName();
                     File pruebas = new File(path+Dir);
                     File[] listaDePruebas = pruebas.listFiles();
-
-                    for (int j = 0; j < listaDePruebas.length; j++) {
-                        if (listaDePruebas[j].isFile()) {
-                            file = listaDePruebas[j].getName();
+                    for (File listaDePrueba : listaDePruebas) {
+                        if (listaDePrueba.isFile()) {
+                            file = listaDePrueba.getName();
                             if (file.endsWith(".xml") || file.endsWith(".XML")){
                                 if (statusTest(path+Dir+"/"+file,"Estado","Pendiente")>0) {
                                     files.add(Dir);        
@@ -165,27 +163,58 @@ public class TLectura {
                             }
                         }
                     }
-
-
                 }
             }
             
-            files2.add(files.get(0));
-            for (int i = 0; i < files.size(); i++) {
-                for (int j = 0; j < files2.size(); j++) {
-                    if ( !files2.get(j).equals(files.get(i)) ) {
-                        files2.add(files.get(i));
-                    }
-                }
-            }
+            HashSet<String> hashSet = new HashSet<>(files);
+            files.clear();
+            files.addAll(hashSet);
+            files2 = files;
         }
         
         return files2;
     }
-   
+    
+    public ArrayList lastTest( String name ) throws IOException{
+        // Aquí la carpeta que queremos explorar    
+        String path = "ensayos/"; 
+        String Dir;
+        String file;
+        boolean flag = true;
+        File tests = new File(path);
+        File[] listOfTests = tests.listFiles();
+        ArrayList<String> files2 = new ArrayList();
+        ArrayList<ArrayList> files = new ArrayList();
+        if (listOfTests.length>0) {
+            for (File listOfTest : listOfTests) {
+                if (listOfTest.isDirectory()) {
+                    Dir = listOfTest.getName();
+                    // Verificar que sea el Emsayo que se quiere recuperar
+                    if (Dir.equals(name)) {
+                        File pruebas = new File(path+Dir);
+                        File[] listaDePruebas = pruebas.listFiles();
+                        for (File listaDePrueba : listaDePruebas) {
+                            if (listaDePrueba.isFile()) {
+                                file = listaDePrueba.getName();
+                                if (file.endsWith(".xml") || file.endsWith(".XML")){
+                                    if (statusTest(path+Dir+"/"+file,"Estado","Pendiente")>0 && flag ) {
+                                        files = ReadXML(path+Dir+"/"+file);
+                                        flag = false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+            
+        }
+        return files;
+    }
     public ArrayList ReadXML( String file ) throws IOException{
         
-        ArrayList<ArrayList> data  = new ArrayList<ArrayList>();
+        ArrayList<ArrayList> data  = new ArrayList<>();
         try {
          File inputFile = new File(file);
 
@@ -198,7 +227,7 @@ public class TLectura {
          /**
           * Empezar a leer el xml apartir del root
           */        
-        ArrayList<String> meta  = new ArrayList<String>();
+        ArrayList<String> meta  = new ArrayList<>();
          
          List<Element> testList = classElement.getChildren();
         /**
@@ -228,13 +257,8 @@ public class TLectura {
             test.add(tests.getChild("Estado").getText());
             data.add(test);
          }
-//        for( int i = 0; i < data.size(); i++ ){
-//            for( int j = 0; j < data.get(i).size(); j++ ){
-//                System.out.println("datos: " + data.get(i).get(j));
-//            }
-//        }
         return data;
-      }catch( Exception e ){
+      }catch( IOException | JDOMException e ){
             System.out.println("Ocurrio un error: " + e.getMessage() + " OK.");
             return data;
       }
